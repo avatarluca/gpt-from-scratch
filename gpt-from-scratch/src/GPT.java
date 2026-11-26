@@ -10,6 +10,7 @@ public class GPT {
         System.out.println("GPT from Scratch");
 
         Tokenizer tokenizer = new CharTokenizer("Hallo Welt");
-        System.out.println(tokenizer.tokenizeToString("Hallo mein Name ist Luca"));
+        // System.out.println(tokenizer.tokenizeToString("Hallo mein Name ist Luca"));
+        System.out.println(tokenizer.decode(tokenizer.encode("Hallo Luca")));
     }
 }

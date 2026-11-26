@@ -5,6 +5,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 
+/*
+A simple character level tokenizer for out character level language model.
+*/
 public class CharTokenizer extends Tokenizer {
     public CharTokenizer(final String input) {
         setUpVocabulary(input);
@@ -23,7 +26,7 @@ public class CharTokenizer extends Tokenizer {
         final List<Token> tokens = new ArrayList<>();
         for(int i = 0; i < input.length(); i++) {
             final char symbol = input.charAt(i);
-            tokens.add(vocabulary.getToken(symbol + ""));
+            tokens.add(vocabulary.getTokenBySymbol(symbol + ""));
         }
         
         return tokens;

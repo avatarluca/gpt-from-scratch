@@ -12,6 +12,17 @@ public abstract class Tokenizer {
     
     abstract List<Token> tokenize(final String input) throws NotActiveException;
     
+    public List<Integer> encode(final String input) throws NotActiveException {
+        List<Token> tokens = tokenize(input);
+        return tokens.stream().map(Token::ID).toList();
+    }
+    public String decode(final List<Integer> input) throws NotActiveException {
+        String output = "";
+        for(final int id : input) output += vocabulary.getTokenById(id).value();
+
+        return output;
+    }
+    
     public String tokenizeToString(final String input) throws NotActiveException {
         final List<Token> tokens = tokenize(input);
         String output = "";
@@ -28,13 +39,24 @@ public abstract class Tokenizer {
             stream.add(lexem);
         }
 
-        public Token getToken(final String symbol) throws NotActiveException {
+        public Token getTokenBySymbol(final String symbol) throws NotActiveException {
             if(this.tokens == null) throw new NotActiveException("Vocabulary not build");
 
             for(final Token token : this.tokens) if(token.value().equals(symbol)) return token;
 
             // we now return an unknown token
-            return new Token(this.tokens.size(), "UNK");
+            return new Token(this.tokens.size(), "<UNK>");
+        }
+
+        public Token getTokenById(final int id) throws NotActiveException {
+            if(this.tokens == null) throw new NotActiveException("Vocabulary not build");
+
+            if(id >= tokens.size()) {
+                // we now return an unknown token
+                return new Token(this.tokens.size(), "<UNK>");
+            }
+
+            return tokens.get(id);
         }
 
         public void build() {
