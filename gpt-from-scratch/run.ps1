@@ -1,4 +1,5 @@
 $projectRoot = Split-Path -Parent $MyInvocation.MyCommand.Path
+Set-Location $projectRoot
 $sourceRoot = Join-Path $projectRoot "src"
 $outputDir = Join-Path $projectRoot "out"
 $sources = Get-ChildItem -Path $sourceRoot -Filter "*.java" -Recurse |
